@@ -6,8 +6,12 @@ const fs = require('fs')
 const OpenAI = require('openai')
 
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 })
+
+const conversation = [
+  
+]
 
 async function main() {
   const completion = await openai.chat.completions.create({
@@ -24,7 +28,6 @@ async function main() {
     voice: "alloy",
     input: answer.content,
   })
-  console.log(speechFile)
   const buffer = Buffer.from(await mp3.arrayBuffer())
   await fs.promises.writeFile(speechFile, buffer)
 }
