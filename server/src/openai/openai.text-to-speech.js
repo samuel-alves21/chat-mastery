@@ -3,16 +3,23 @@ const fs = require('fs')
 
 const { openai } = require('./openai.config')
 
-const speechFile = path.resolve("./speech.mp3")
+const filePath = path.join(__dirname, 'audio_temp', 'server_audio.mp3')
 
-const getSpeech = async () => {
+const TextToSpeech = async (text) => {
   const mp3 = await openai.audio.speech.create({
     model: "tts-1",
     voice: "alloy",
-    input: answer.content,
+    input: text,
   })
+  
   const buffer = Buffer.from(await mp3.arrayBuffer())
-  await fs.promises.writeFile(speechFile, buffer)
+  await fs.promises.writeFile(filePath, buffer)
+
+  return filePath
+}
+
+module.exports = {
+  TextToSpeech
 }
 
 

@@ -4,8 +4,8 @@ const conversation = [
   {role: 'system', content: 'You are a helpful assistant.'},
 ]
 
-const getAnswer = async (userInput) => {
-  conversation.push({role: 'user', content: userInput})
+const getAnswer = async (text) => {
+  conversation.push({role: 'user', content: text})
 
   console.log(conversation)
 
