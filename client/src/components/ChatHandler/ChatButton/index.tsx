@@ -1,11 +1,15 @@
+import { useState } from "react"
 
-import { ChatState } from "../../../hooks/useAudioSetup"
+import { audioSetup } from "../../../functions/audio/audio-setup"
+import { getResponse } from "../../../functions/audio/audio-get_response"
+import { playResponse } from "../../../functions/audio/audio-play_response"
 import { Button } from "./Styles"
+import { ChatState } from ".."
 
 type ChatButtonProps = {
   chatState: ChatState
-  setChatState: React.Dispatch<React.SetStateAction<ChatState>>
-  recorder: MediaRecorder | undefined
+  setChatState: (state: ChatState) => void
+  setRecorder: (recorder: MediaRecorder) => void
 }
 
 export type StylesProps = {
@@ -13,16 +17,54 @@ export type StylesProps = {
 }
 
 
-export const ChatButton = ({ chatState, setChatState, recorder }: ChatButtonProps) => {
+export const ChatButton = ({ chatState, setChatState, setRecorder }: ChatButtonProps) => {
 
-  const handleconversation = () => {
-    if (chatState === 'start') {
-      setChatState('recording')
-      recorder?.start()
-  
+  const [isStarted, setIsstarted] = useState(false)
+
+  const handleconversation = async () => {
+    if (!isStarted) {
+      const stream = await audioSetup()
+
+      if (!stream) {
+        console.log('please turn on the microphone permission...')
+        setChatState('start')
+        return
+      } 
+      
+      let chunkArray: Array<Blob> = []
+      
+      const recorder = new MediaRecorder(stream)
+
+      setRecorder(recorder)
+
+      recorder.ondataavailable = (e) => {
+        chunkArray.push(e.data)
+      }
+
+      recorder.onstop = async () => {
+        console.log('here')
+        const audioBlob = new Blob(chunkArray, { type: 'audio/mpeg' })
+    
+        chunkArray = []
+        
+        const audioArrayBuffer = await getResponse(audioBlob)
+
+        if (!audioArrayBuffer) {
+          console.log('Something went wrong...')
+          setChatState('start')
+          return
+        }
+        
+        setChatState('speaking') 
+      
+        await playResponse(audioArrayBuffer)
+        setChatState('start')
+
+        setIsstarted(true)
+      }
     } else {
-      setChatState('procesing')
-      recorder?.stop()
+      // end conversation
+      setIsstarted(true)
     }
   }
 

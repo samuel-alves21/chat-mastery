@@ -1,14 +1,21 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  width: var(--px-10);
-  height: var(--px-10);
-
+  width: 100px;
+  height: 100px;
   border-radius: var(--per-5);
+
+  background-color: var(--color-secundary);
+
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
 
   .bi-mic-fill {
     font-size: var(--px-6);

@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
   :root {
@@ -25,6 +25,7 @@ export const GlobalStyles = createGlobalStyle`
     --per-10: 100%;
 
     --color-primary: #2830DB;
+    --color-secundary: #595fd8;
   }
 
   * {
