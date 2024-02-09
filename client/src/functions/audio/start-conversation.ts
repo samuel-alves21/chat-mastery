@@ -1,4 +1,4 @@
-import { ChatState } from "../../components/ChatButton"
+import { ChatState } from "../../components/ChatHandler"
 
 import { getResponse } from "./audio-get_response"
 import { playResponse } from "./audio-play_response"

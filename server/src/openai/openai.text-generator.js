@@ -4,7 +4,7 @@ const conversation = [
   {role: 'system', content: 'You are a helpful assistant.'},
 ]
 
-const getAnswer = async (text) => {
+const textGenenation = async (text) => {
   conversation.push({role: 'user', content: text})
 
   console.log(conversation)
@@ -22,5 +22,5 @@ const getAnswer = async (text) => {
 }
 
 module.exports = {
-  getAnswer
+  textGenenation
 }

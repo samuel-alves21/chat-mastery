@@ -10,6 +10,8 @@ export const GlobalStyles = createGlobalStyle`
     --px-6: 48px;
     --px-7: 56px;
     --px-8: 64px;
+    --px-9: 72px;
+    --px-10: 80px;
 
     --per-1: 10%;
     --per-2: 20%;

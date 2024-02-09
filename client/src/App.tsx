@@ -1,7 +1,7 @@
 // import { useEffect, useState } from "react"
 
 import { GlobalStyles } from "./styles"
-import { ChatButton } from "./components/ChatButton"
+import { ChatHandler } from "./components/ChatHandler"
 
 function App() {
   // const [audio, setAudio] = useState('')
@@ -73,7 +73,7 @@ function App() {
     <>
     <GlobalStyles />
     <section>
-      <ChatButton />
+      <ChatHandler />
     </section>
     </>
   )
