@@ -1,16 +1,25 @@
 import { ChatState } from ".."
-import { Container } from "./Styles"
+import { MainContainer, MicContainer } from "./Styles"
 
 type ChatMicrophoneProps = {
+  isStarted: boolean
   chatState: ChatState
-  setChatState: (state: ChatState) => void
   recorder: MediaRecorder | null
+  setChatState: (state: ChatState) => void
 }
 
-export const ChatMicrophone = ({ chatState, setChatState, recorder }: ChatMicrophoneProps) => {
+export type ChatMicrophoneStyles = {
+  $chatState: ChatState
+  $isStarted: boolean
+}
+
+export const ChatMicrophone = ({ chatState, recorder, isStarted, setChatState }: ChatMicrophoneProps) => {
 
   const handleRecorder = () => {
-    if (chatState === 'start') {
+    if (!isStarted) return
+    if (chatState === 'procesing' || chatState === 'speaking') return
+    
+    if (chatState === 'ready') {
       setChatState('recording')
       recorder?.start()
   
@@ -20,9 +29,15 @@ export const ChatMicrophone = ({ chatState, setChatState, recorder }: ChatMicrop
     }
   }
 
+  const captalizedText = chatState.replace(chatState[0], chatState[0].toUpperCase())
+  const buttonText = chatState === 'ready' ? captalizedText : captalizedText + '...'
+
   return (
-    <Container onClick={handleRecorder}>
-      <i className="bi bi-mic-fill"></i>
-    </Container>
+    <MainContainer>
+      <MicContainer onClick={handleRecorder} $chatState={chatState} $isStarted={isStarted}>
+        <i className="bi bi-mic-fill"></i>
+      </MicContainer>
+      <p>{buttonText}</p>
+    </MainContainer>
   )
 }

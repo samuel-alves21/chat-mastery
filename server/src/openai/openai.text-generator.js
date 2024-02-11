@@ -1,24 +1,19 @@
 const { openai } = require('./openai.config')
 
-const conversation = [
-  {role: 'system', content: 'You are a helpful assistant.'},
-]
-
-const textGenenation = async (text) => {
-  conversation.push({role: 'user', content: text})
-
-  console.log(conversation)
+const textGenenation = async (text, context) => {
+  const updatedContext = [...context]
+  updatedContext.push({role: 'user', content: text})
 
   const completion = await openai.chat.completions.create({
-    messages: conversation,
+    messages: updatedContext,
     model: 'gpt-4',
   })
 
-  const answer = completion.choices[0].message.content
+  const response = completion.choices[0].message.content
 
-  conversation.push({role: 'assistant', content: answer})
+  updatedContext.push({role: 'assistant', content: response})
 
-  return answer
+  return { response, updatedContext }
 }
 
 module.exports = {

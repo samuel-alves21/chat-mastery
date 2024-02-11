@@ -1,16 +1,19 @@
-export const getResponse = async (audioBlob: Blob) => {
+export const getResponse = async (base64AudioData: string, conversationContext: Array<object>) => {
   try {
     const response = await fetch('http://localhost:8000/conversation', {
       method: 'POST',
-      body: audioBlob,
+      body: JSON.stringify({
+        encodedAudio: base64AudioData,
+        context: conversationContext
+      }),
       headers: {
-        'Content-Type': 'audio/mpeg'
+        'Content-Type': 'application/json'
       }
     })
 
-    const audioArrayBuffer = await response.arrayBuffer()
+    const data = await response.json()
 
-    return audioArrayBuffer
+    return data
     
   } catch (error) {
     console.log(error)

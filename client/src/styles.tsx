@@ -32,12 +32,13 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
-    font-size: var(--px-2);
   }
-
+  
   body {
     background-color: #161616;
+    color: #fff;
+    
+    font-family: 'Poppins', sans-serif;
   }
   
   section {
@@ -50,6 +51,7 @@ export const GlobalStyles = createGlobalStyle`
   
   button {
     padding: var(--px-2) var(--px-8); 
+    font-size: var(--px-2);
     
     cursor: pointer;
     border: none;
@@ -59,5 +61,9 @@ export const GlobalStyles = createGlobalStyle`
     &:hover {
       opacity: 0.8;
     }
+  }
+
+  p {
+    font-size: var(--px-2);
   }
 `

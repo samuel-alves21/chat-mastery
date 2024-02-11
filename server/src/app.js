@@ -1,5 +1,7 @@
 require('dotenv').config()
 
+const fs = require('fs') 
+
 const express = require('express')
 const cors = require('cors')
 
@@ -9,18 +11,28 @@ const { TextToSpeech } = require('./openai/openai.text-to-speech')
 
 const app = express()
 
-app.use(express.raw({ type: 'audio/mpeg', limit: '25mb' }))
+app.use(express.json({ limit: '10mb' }))
 
 app.use(cors())
 
 app.post('/conversation', async (req, res) => {
-  const clientSpeech = req.body
+  console.log(req.method, req.url)
 
-  const clientText = await SpeechToText(clientSpeech)
-  const answer = await textGenenation(clientText)
-  const audioPath = await TextToSpeech(answer)
+  const { encodedAudio, context } = req.body
+  const audioBuffer = Buffer.from(encodedAudio, 'base64')
+  
 
-  res.sendFile(audioPath)
+  const clientText = await SpeechToText(audioBuffer)
+  const { response, updatedContext } = await textGenenation(clientText, context)
+  const audioPath = await TextToSpeech(response)
+
+  const data = await fs.promises.readFile(audioPath)
+  const base64AudioData = Buffer.from(data).toString('base64')
+
+  res.json({
+    audio: base64AudioData,
+    updatedContext,
+  })
 })
 
 module.exports = {

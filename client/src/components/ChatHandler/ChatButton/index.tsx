@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { ConversationContext, conversationContext } from "../../../utils/conversationContext"
 
 import { audioSetup } from "../../../functions/audio/audio-setup"
 import { getResponse } from "../../../functions/audio/audio-get_response"
@@ -7,68 +7,95 @@ import { Button } from "./Styles"
 import { ChatState } from ".."
 
 type ChatButtonProps = {
+  isStarted: boolean
   chatState: ChatState
+  recorder: MediaRecorder | null
+  chatContext: Array<object>
+  setIsStarted: (state: boolean) => void
   setChatState: (state: ChatState) => void
   setRecorder: (recorder: MediaRecorder) => void
+  setChatContext: (context: ConversationContext) => void
 }
 
-export type StylesProps = {
+export type ChatButtonStyles = {
   $chatState: ChatState
+  $isStarted: boolean
 }
 
-
-export const ChatButton = ({ chatState, setChatState, setRecorder }: ChatButtonProps) => {
-
-  const [isStarted, setIsstarted] = useState(false)
+export const ChatButton = ({ chatState, isStarted, recorder, chatContext, setChatState, setIsStarted, setRecorder, setChatContext }: ChatButtonProps) => {
 
   const handleconversation = async () => {
     if (!isStarted) {
+
       const stream = await audioSetup()
 
       if (!stream) {
         console.log('please turn on the microphone permission...')
-        setChatState('start')
+        setChatState('ready')
         return
       } 
       
       let chunkArray: Array<Blob> = []
       
-      const recorder = new MediaRecorder(stream)
-
-      setRecorder(recorder)
-
-      recorder.ondataavailable = (e) => {
+      if (recorder) {
+        setIsStarted(true)
+        return
+      }
+      
+      const recorderObj = new MediaRecorder(stream)  
+      
+      recorderObj.ondataavailable = (e) => {
         chunkArray.push(e.data)
       }
-
-      recorder.onstop = async () => {
-        console.log('here')
-        const audioBlob = new Blob(chunkArray, { type: 'audio/mpeg' })
-    
-        chunkArray = []
-        
-        const audioArrayBuffer = await getResponse(audioBlob)
-
-        if (!audioArrayBuffer) {
-          console.log('Something went wrong...')
-          setChatState('start')
-          return
-        }
-        
-        setChatState('speaking') 
       
-        await playResponse(audioArrayBuffer)
-        setChatState('start')
+      recorderObj.onstop = async () => {
+        const audioBlob = new Blob(chunkArray, { type: 'audio/mpeg' })
+        const reader = new FileReader()
+        reader.readAsDataURL(audioBlob)
 
-        setIsstarted(true)
+        reader.onloadend = async () => {
+          if (typeof reader.result === 'string') {
+
+            const base64AudioData = reader.result.split(',')[1]
+  
+            chunkArray = []
+
+            const { audio, updatedContext } = await getResponse(base64AudioData, chatContext)
+            
+            if (!audio) {
+              setChatState('ready')
+              console.log('Something went wrong...')
+              return
+            }
+
+            const binaryString = atob(audio)
+            
+            const uint8Array = new Uint8Array(binaryString.length)
+
+            for (let i = 0; i < binaryString.length; i++) {
+              uint8Array[i] = binaryString.charCodeAt(i)
+            }
+            
+            setChatState('speaking') 
+            
+            await playResponse(uint8Array)
+            setChatState('ready')
+            setChatContext(updatedContext)
+          } 
+        }
       }
+      
+      setRecorder(recorderObj)
+      setIsStarted(true)
+
     } else {
       // end conversation
-      setIsstarted(true)
+      setIsStarted(false)
+      setChatContext(conversationContext)
     }
   }
 
   return (
-    <Button id='chat-button' onClick={handleconversation} $chatState={chatState}>{chatState.replace(chatState[0], chatState[0].toUpperCase())}</Button>
+    <Button onClick={handleconversation} $chatState={chatState} $isStarted={isStarted}>{isStarted ? 'Stop' : 'Start Pratice' }</Button>
   )
 }
