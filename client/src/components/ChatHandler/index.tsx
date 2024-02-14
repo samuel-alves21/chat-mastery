@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { conversationContext } from '../../utils/conversationContext.js'
 
@@ -14,6 +14,23 @@ export const ChatHandler = () => {
   const [recorder, setRecorder] = useState<MediaRecorder | null>(null)
   const [isStarted, setIsStarted] = useState(false)
   const [chatContext, setChatContext] = useState(conversationContext)
+  
+  useEffect(() => {
+    if (isStarted) {
+      const beforeUnloadHandler = (event: BeforeUnloadEvent) => {
+          event.preventDefault()
+          event.returnValue = ''
+          const confirmationMessage = 'You are still practising and changes may not be saved. Do you really want to leave?.'
+          return confirmationMessage
+      }
+    
+      window.addEventListener('beforeunload', beforeUnloadHandler)
+    
+      return () => {
+          window.removeEventListener('beforeunload', beforeUnloadHandler)
+      }
+    }
+  }, [isStarted])
 
   return (
     <Container>
