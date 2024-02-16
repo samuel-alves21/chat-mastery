@@ -39,14 +39,8 @@ export const GlobalStyles = createGlobalStyle`
     color: #fff;
     
     font-family: 'Poppins', sans-serif;
-  }
-  
-  section {
-    height: 100vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
   }
   
   button {

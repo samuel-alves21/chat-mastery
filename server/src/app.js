@@ -11,7 +11,7 @@ const { TextToSpeech } = require('./openai/openai.text-to-speech')
 
 const app = express()
 
-app.use(express.json({ limit: '10mb' }))
+app.use(express.json({ limit: '20mb' }))
 
 app.use(cors())
 

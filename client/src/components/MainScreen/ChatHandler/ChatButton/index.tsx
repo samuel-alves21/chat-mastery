@@ -1,9 +1,11 @@
-import { ConversationContext, conversationContext } from "../../../utils/conversationContext"
+import { ConversationContext, conversationContext } from "../../../../utils/conversationContext"
 
-import { audioSetup } from "../../../functions/audio/audio-setup"
-import { getResponse } from "../../../functions/audio/audio-get_response"
-import { playResponse } from "../../../functions/audio/audio-play_response"
+import { audioSetup } from "../../../../functions/audio/audio-setup"
+import { getResponse } from "../../../../functions/audio/audio-get_response"
+import { playResponse } from "../../../../functions/audio/audio-play_response"
+
 import { Button } from "./Styles"
+
 import { ChatState } from ".."
 
 type ChatButtonProps = {

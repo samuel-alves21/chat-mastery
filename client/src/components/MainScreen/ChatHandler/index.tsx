@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import { conversationContext } from '../../utils/conversationContext.js'
+import { conversationContext } from '../../../utils/conversationContext.js'
 
 import { ChatMicrophone } from './ChatMicrophone/index.js'
+import { SettingsIcon } from './SeetingsIcon/index.js'
 import { ChatButton } from './ChatButton/index.js'
-import { Container } from './Style.js'
+
+import { Container, MainContainer } from './Styles.js'
 
 export type ChatState = 'ready' | 'recording' | 'procesing' | 'speaking'
 
@@ -27,29 +29,32 @@ export const ChatHandler = () => {
       window.addEventListener('beforeunload', beforeUnloadHandler)
     
       return () => {
-          window.removeEventListener('beforeunload', beforeUnloadHandler)
+        window.removeEventListener('beforeunload', beforeUnloadHandler)
       }
     }
   }, [isStarted])
 
   return (
-    <Container>
+    <MainContainer>
       <ChatMicrophone 
       recorder={recorder}
       chatState={chatState} 
       isStarted={isStarted}
       setChatState={setChatState} 
       />
-      <ChatButton 
-      recorder={recorder} 
-      chatState={chatState} 
-      isStarted={isStarted} 
-      chatContext={chatContext}
-      setRecorder={setRecorder} 
-      setChatState={setChatState} 
-      setIsStarted={setIsStarted}
-      setChatContext={setChatContext}
-      />
-    </Container>
+      <Container>
+        <ChatButton 
+        recorder={recorder} 
+        chatState={chatState} 
+        isStarted={isStarted} 
+        chatContext={chatContext}
+        setRecorder={setRecorder} 
+        setChatState={setChatState} 
+        setIsStarted={setIsStarted}
+        setChatContext={setChatContext}
+        />
+        <SettingsIcon />
+      </Container>
+    </MainContainer>
   )
 }

@@ -26,9 +26,11 @@ export const MicContainer = styled.div<ChatMicrophoneStyles>`
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  margin-top: 200px;
 
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border-radius: var(--per-5);
 
   background-color: var(--color-secundary);
@@ -36,7 +38,7 @@ export const MicContainer = styled.div<ChatMicrophoneStyles>`
   cursor: pointer;
 
   .bi-mic-fill {
-    font-size: var(--px-6);
+    font-size: var(--px-8);
     color: var(--color-primary);
   }
 `
