@@ -9,14 +9,14 @@ export const MainContainer = styled.div<MainContainerStyledProps>`
   position: absolute;
   z-index: 2;
  
-  min-height: 100%;
+  height: 100%;
   width: 100%;
   
   background-color: #251a802d;
 `
 
 export const SettingsContainer = styled.div`
-  height: 600px;
+  height: 80%;
   width: max(50%, 300px);
 
   background: rgba(255, 255, 255, 0.2);

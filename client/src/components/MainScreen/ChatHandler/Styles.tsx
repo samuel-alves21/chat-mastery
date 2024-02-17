@@ -7,7 +7,7 @@ export const MainContainer = styled.div`
   justify-content: space-between;
   flex-grow: 1;
 
-  gap: var(--px-4);
+  gap: var(--px-6);
   padding: var(--px-4);
 `
 

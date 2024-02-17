@@ -6,6 +6,8 @@ export const MainContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  flex-grow: 1;
   
   gap: var(--px-2);
 
@@ -26,8 +28,6 @@ export const MicContainer = styled.div<ChatMicrophoneStyles>`
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  margin-top: 200px;
 
   width: 150px;
   height: 150px;
