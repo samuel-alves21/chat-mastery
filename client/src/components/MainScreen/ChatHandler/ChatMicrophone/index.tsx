@@ -1,6 +1,8 @@
 import { ChatState } from ".."
 import { MainContainer, MicContainer } from "./Styles"
 
+import { captalizeText } from "../../../../functions/text-captalize"
+
 type ChatMicrophoneProps = {
   isStarted: boolean
   chatState: ChatState
@@ -29,7 +31,7 @@ export const ChatMicrophone = ({ chatState, recorder, isStarted, setChatState }:
     }
   }
 
-  const captalizedText = chatState.replace(chatState[0], chatState[0].toUpperCase())
+  const captalizedText = captalizeText(chatState)
   const buttonText = chatState === 'ready' ? captalizedText : captalizedText + '...'
 
   return (

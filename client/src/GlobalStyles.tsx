@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 
-export const GlobalStyles = createGlobalStyle`
+type GlobalStylesProps = {
+  $darkMode: boolean
+}
+
+export const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
   :root {
     --px-1: 8px;
     --px-2: 16px;
@@ -26,6 +30,14 @@ export const GlobalStyles = createGlobalStyle`
 
     --color-primary: #2830DB;
     --color-secundary: #595fd8;
+
+    --color-widget: ${({ $darkMode }) => $darkMode ? '#2F2F2F' : '#fff'};
+    --color-widget-hover: ${({ $darkMode }) => $darkMode ? '#424242' : '#ECECEC'};
+
+    --color-text: ${({ $darkMode }) => $darkMode ? '#fff' : '#000'};
+    --color-bg: ${({ $darkMode }) => $darkMode ? '#212121' : '#fff'};
+
+    --color-line : ${({ $darkMode }) => $darkMode ? '#424242' : '#ECECEC'};
   }
 
   * {
@@ -35,12 +47,19 @@ export const GlobalStyles = createGlobalStyle`
   }
   
   body {
-    background-color: #161616;
-    color: #fff;
+    background-color: var(--color-bg);
+    color: var(--color-text);
     
     font-family: 'Poppins', sans-serif;
 
     position: relative;
+
+    transition: color 0.5s;
+    transition: background 0.5s;
+  }
+
+  h3, h4 {
+    font-weight: normal;
   }
   
   button {

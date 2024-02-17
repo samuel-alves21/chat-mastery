@@ -3,6 +3,9 @@ import { useContext } from 'react'
 import { SettingsContext, SettingsContextType } from '../../contexts/SettingsContext'
 
 import { MainContainer, SettingsContainer } from './Styles'
+import { SettingsOptions } from './SettingsOptions'
+import { SettingsHeader } from './SettingsHeader'
+import { SettingsLine } from './SettingsLine'
 
 export type MainContainerStyledProps = {
   $onScreen: boolean
@@ -19,8 +22,10 @@ export const Settings = () => {
   
   return (
     <MainContainer $onScreen={onScreen} onClick={(e) => openSettingsScreen(e)}>
-      <SettingsContainer>
-        <h1>Settings</h1>
+      <SettingsContainer $onScreen={onScreen}>
+        <SettingsHeader />
+        <SettingsLine width='100%'/>
+        <SettingsOptions />
       </SettingsContainer>
     </MainContainer>
   )

@@ -2,27 +2,55 @@ import styled from "styled-components"
 
 import { MainContainerStyledProps } from "."
 
+const animationTime = '0.5s'
+
 export const MainContainer = styled.div<MainContainerStyledProps>`
-  display: ${({$onScreen}) => $onScreen ? 'flex' : 'none'};
+  display: flex;
+  opacity: ${({$onScreen}) => $onScreen ? '1' : '0'};
+  pointer-events: ${({$onScreen}) => $onScreen ? 'all' : 'none'};
   justify-content: center;
   align-items: center;
   position: absolute;
   z-index: 2;
- 
+
+  transition: opacity ${({ $onScreen }) => $onScreen ? '0.8s' : '0.2s'} ease-in-out;
+  
   height: 100%;
   width: 100%;
+
+  overflow-y: hidden;
   
-  background-color: #251a802d;
+  background-color: #070707a7;
 `
 
-export const SettingsContainer = styled.div`
-  height: 80%;
-  width: max(50%, 300px);
+export const SettingsContainer = styled.div<MainContainerStyledProps>`
+  height: 60%;
+  width: max(40%, 300px);
+  border-radius: var(--px-4);
 
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: var(--px-4);
+
+  background-color: var(--color-widget);
+
+  ${({$onScreen}) => $onScreen ? `animation: fade-in ${animationTime} ease-in-out forwards` : `animation: fade-out ${animationTime} ease-in-out forwards`};
+
+  @keyframes fade-in {
+    0% {
+      transform: translateY(100vh);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-out {
+    0% {
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(100vh);
+    }
+  }
 `
