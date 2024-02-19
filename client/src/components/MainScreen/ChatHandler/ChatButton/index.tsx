@@ -1,4 +1,4 @@
-import { ConversationContext, conversationContext } from "../../../../utils/conversationContext"
+import { ConversationContext, conversationContext } from "../../../../utils/conversation-context"
 
 import { audioSetup } from "../../../../functions/audio/audio-setup"
 import { getResponse } from "../../../../functions/audio/audio-get_response"

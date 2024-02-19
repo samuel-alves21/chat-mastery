@@ -12,7 +12,7 @@ type DarkModeProviderProps = {
 export const DarkModeContext = createContext<DarkModeContextType | null>(null)
 
 export const DarkModeProvider = ({ children }: DarkModeProviderProps) => {
-  const [darkMode, setDarkmode] = useState(false)
+  const [darkMode, setDarkmode] = useState(true)
 
   return (
     <DarkModeContext.Provider value={{darkMode, setDarkmode}}>

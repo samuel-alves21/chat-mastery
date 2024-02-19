@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { conversationContext } from '../../../utils/conversationContext.js'
+import { conversationContext } from '../../../utils/conversation-context.js'
 
 import { ChatMicrophone } from './ChatMicrophone/index.js'
 import { SettingsIcon } from './SeetingsIcon/index.js'

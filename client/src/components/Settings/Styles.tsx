@@ -24,8 +24,8 @@ export const MainContainer = styled.div<MainContainerStyledProps>`
 `
 
 export const SettingsContainer = styled.div<MainContainerStyledProps>`
-  height: 60%;
-  width: max(40%, 300px);
+  height: min(80%, 800px);
+  width: min(80%, 800px);
   border-radius: var(--px-4);
 
   padding: var(--px-4);

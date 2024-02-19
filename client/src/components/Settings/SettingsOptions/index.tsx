@@ -1,11 +1,12 @@
 import { useState } from "react"
 
-import { SettingsOptionsType, settingsOptions } from "../../../utils/settingsOptions"
+import { SettingsOptionsType, settingsOptions } from "../../../utils/settings-options"
 import { captalizeText } from "../../../functions/text-captalize"
 
 import { MainContainer, Option, OptionsContainer, SelectedOptionContainer } from "./Styles"
 
 import { ThemeSettings } from "./ThemeSettings"
+import { VoiceSettings } from "./VoiceSettings"
 
 export const SettingsOptions = () => {
   const [selectedOption, setSelectedOption] = useState<SettingsOptionsType>('theme')
@@ -20,7 +21,8 @@ export const SettingsOptions = () => {
         ))}
       </OptionsContainer>
       <SelectedOptionContainer>
-        {selectedOption === "theme" && <ThemeSettings />}
+        {selectedOption === 'theme' && <ThemeSettings />}
+        {selectedOption === 'voice' && <VoiceSettings />}
       </SelectedOptionContainer>
     </MainContainer> 
   )

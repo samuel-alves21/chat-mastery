@@ -1,10 +1,11 @@
+import { useContext } from "react"
+
 import { MainScreen } from "./components/MainScreen"
 import { Settings } from "./components/Settings"
 import { GlobalStyles } from "./GlobalStyles"
 
 import { SettingsProvider } from "./contexts/SettingsContext"
 import { DarkModeContext, DarkModeContextType } from "./contexts/DarkModeContext"
-import { useContext } from "react"
 
 
 function App() {

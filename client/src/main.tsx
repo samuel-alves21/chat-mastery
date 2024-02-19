@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client'
 
 import App from './App.tsx'
+
 import { DarkModeProvider } from './contexts/DarkModeContext/index.tsx'
 
 

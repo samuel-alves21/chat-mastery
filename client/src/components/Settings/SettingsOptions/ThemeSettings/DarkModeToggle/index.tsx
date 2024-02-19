@@ -7,7 +7,7 @@ import { DarkModeContext, DarkModeContextType } from "../../../../../contexts/Da
 export function DarkModeToggle() {
   const { darkMode, setDarkmode } = useContext(DarkModeContext) as DarkModeContextType 
   
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(darkMode)
 
   const handleToggle = () => {
     setToggle(!toggle)
