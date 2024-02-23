@@ -28,7 +28,7 @@ export const SettingsContainer = styled.div<MainContainerStyledProps>`
   width: min(80%, 800px);
   border-radius: var(--px-4);
 
-  padding: var(--px-4);
+  padding: var(--px-3);
 
   background-color: var(--color-widget);
 

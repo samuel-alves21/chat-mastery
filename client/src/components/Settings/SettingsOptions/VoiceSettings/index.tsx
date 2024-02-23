@@ -3,12 +3,12 @@ import { voiceOptions } from "../../../../utils/voice-options"
 
 import { AudioPlayer } from "./AudioPlayer"
 
-import { MainContainer, AudioContainer, AudioNameContainer } from "./Styles"
+import { AudioContainer, AudioNameContainer } from "./Styles"
 
 export const VoiceSettings = () => {
 
   return (
-    <MainContainer>
+    <>
       {voiceOptions.map((audio, index) => (
         <AudioContainer key={index}>
           <AudioNameContainer>
@@ -18,6 +18,6 @@ export const VoiceSettings = () => {
           <AudioPlayer src={audio.path}/>
         </AudioContainer>
       ))}
-    </MainContainer>
+    </>
   )
 }

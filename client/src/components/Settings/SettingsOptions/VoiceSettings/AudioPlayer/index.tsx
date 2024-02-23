@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { PlayerContainer, PlayerIcon, PlayerTrackContainer } from "./Styles"
+import { PlayerContainer, PlayerIcon, PlayerTrack, PlayerTrackContainer } from "./Styles"
 
 type AudioPlayerProps = {
   src: string
@@ -8,20 +8,37 @@ type AudioPlayerProps = {
 export const AudioPlayer = ({ src }: AudioPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [audio, setAudio] = useState<HTMLAudioElement>()
+  const [currentDuration, setCurrentDuration] = useState(0)
+  const [totalDuration, setTotalDuration] = useState(0)
 
   useEffect(() => {
     const audioObj = new Audio(src)
 
     audioObj.onended = () => {
       setIsPlaying(false)
+      setCurrentDuration(0)
     }
 
-    audioObj.onplaying = (e) => {
-      console.log(e)
+    audioObj.onloadedmetadata = (e: Event) => {
+      const audio = e.target as HTMLAudioElement
+      setTotalDuration(audio.duration)
     }
+  
+    if (!audio) {
+        setAudio(audioObj)
+      }
+  }, [setAudio, src, audio])
 
-    setAudio(audioObj)
-  }, [setAudio, src])
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (audio && isPlaying) {
+        setCurrentDuration(audio.currentTime / totalDuration * 100)
+      }
+    }, 100)
+
+    return () => clearInterval(interval)
+  
+  }, [audio, isPlaying, totalDuration])
   
 
   const handlePlay = () => {
@@ -34,16 +51,13 @@ export const AudioPlayer = ({ src }: AudioPlayerProps) => {
     }
   }
 
-  //bi-play-fill playing
-  //bi-pause-fill pause
-
   return (
     <PlayerContainer>
       <PlayerIcon>
         <i className={`bi ${isPlaying ? 'bi-pause-fill' : 'bi-play-fill'}`} onClick={handlePlay}></i>
       </PlayerIcon>
       <PlayerTrackContainer>
-
+        <PlayerTrack width={currentDuration}/>
       </PlayerTrackContainer>
     </PlayerContainer>
   )
