@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { PlayerContainer, PlayerIcon, PlayerTrack, PlayerTrackContainer } from "./Styles"
+import { PlayerContainer, PlayerIcon, PlayerTrack } from "./Styles"
 
 type AudioPlayerProps = {
   src: string
@@ -20,25 +20,28 @@ export const AudioPlayer = ({ src }: AudioPlayerProps) => {
     }
 
     audioObj.onloadedmetadata = (e: Event) => {
-      const audio = e.target as HTMLAudioElement
-      setTotalDuration(audio.duration)
+      const target = e.target as HTMLAudioElement
+      setTotalDuration(target.duration)
+    
     }
-  
+
     if (!audio) {
-        setAudio(audioObj)
-      }
+      setAudio(audioObj)
+    }
+
+    return () => audio?.pause()
   }, [setAudio, src, audio])
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (audio && isPlaying) {
-        setCurrentDuration(audio.currentTime / totalDuration * 100)
+        setCurrentDuration(audio.currentTime)
       }
     }, 100)
 
     return () => clearInterval(interval)
   
-  }, [audio, isPlaying, totalDuration])
+  }, [audio, isPlaying])
   
 
   const handlePlay = () => {
@@ -51,14 +54,38 @@ export const AudioPlayer = ({ src }: AudioPlayerProps) => {
     }
   }
 
+  const changeSongTrack = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentDuration(Number(e.target.value))
+    if (audio) {
+      audio.currentTime = Number(e.target.value)
+    }
+  }
+
+  const playOnChangeTrack = () => {
+    if (isPlaying) {
+      audio?.play()
+    }
+  }
+  
+  const pauseOnChangeTrack = () => {
+    audio?.pause()
+  }
+
   return (
     <PlayerContainer>
       <PlayerIcon>
         <i className={`bi ${isPlaying ? 'bi-pause-fill' : 'bi-play-fill'}`} onClick={handlePlay}></i>
       </PlayerIcon>
-      <PlayerTrackContainer>
-        <PlayerTrack width={currentDuration}/>
-      </PlayerTrackContainer>
-    </PlayerContainer>
+      <PlayerTrack 
+      type="range"
+      min={0} 
+      max={totalDuration} 
+      value={currentDuration} 
+      step={0.01} 
+      onChange={(e) => changeSongTrack(e)} 
+      onMouseDown={pauseOnChangeTrack} 
+      onMouseUp={playOnChangeTrack}
+      />
+    </PlayerContainer> 
   )
 }

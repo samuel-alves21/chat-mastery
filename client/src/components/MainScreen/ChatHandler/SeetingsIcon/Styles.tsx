@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 type SettingsIconStyles = {
-  onScreen: boolean
-  wasClicked: boolean
+  $onScreen: boolean
+  $wasClicked: boolean
 }
 
 const animationTime = '0.5s'
@@ -17,7 +17,7 @@ export const MainContainer = styled.div<SettingsIconStyles>`
     }
   }
   
-  ${({ onScreen, wasClicked }) => wasClicked && (onScreen ? `animation: rotate-in ${animationTime} ease-in-out` : `animation: rotate-out ${animationTime} ease-in-out`)};
+  ${({ $onScreen, $wasClicked }) => $wasClicked && ($onScreen ? `animation: rotate-in ${animationTime} ease-in-out` : `animation: rotate-out ${animationTime} ease-in-out`)};
   
   @keyframes rotate-in {
     0% {

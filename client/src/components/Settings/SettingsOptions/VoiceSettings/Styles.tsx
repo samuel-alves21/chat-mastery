@@ -15,4 +15,8 @@ export const AudioContainer = styled.div`
 export const AudioNameContainer = styled.div`
   display: flex;
   gap: var(--px-1);
+
+  & * {
+    cursor: pointer;
+  }
 `

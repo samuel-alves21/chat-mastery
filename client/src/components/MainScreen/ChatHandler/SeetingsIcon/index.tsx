@@ -16,7 +16,7 @@ export const SettingsIcon = () => {
   }
 
   return (
-    <MainContainer onClick={showSettingsScreen} onScreen={onScreen} wasClicked={wasClicked}>
+    <MainContainer onClick={showSettingsScreen} $onScreen={onScreen} $wasClicked={wasClicked}>
       <i className="bi bi-gear-fill"></i>
     </MainContainer>
   )
