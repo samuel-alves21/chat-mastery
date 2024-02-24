@@ -24,6 +24,9 @@ export const MainContainer = styled.div<MainContainerStyledProps>`
 `
 
 export const SettingsContainer = styled.div<MainContainerStyledProps>`
+  display: flex;
+  flex-direction: column;
+
   height: min(80%, 800px);
   width: min(80%, 800px);
   border-radius: var(--px-4);

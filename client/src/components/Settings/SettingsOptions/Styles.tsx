@@ -6,12 +6,11 @@ type OptionStyles = {
 
 export const MainContainer = styled.div`
   padding: var(--px-2) 0;
-
+  
   display: flex;
   gap: var(--px-10);
-
-  flex-grow: 1;
-`
+  height: 70%;
+  `
 
 export const OptionsContainer = styled.div`
   width: 20%;
@@ -30,11 +29,9 @@ export const Option = styled.div<OptionStyles>`
 
 export const SelectedOptionContainer = styled.div`
   flex-grow: 1;
-
   display: flex;
   flex-direction: column;
-
-  height: 250px;
+  height: 100%; 
   padding: 0 var(--px-2);
   overflow-y: auto;
 `
