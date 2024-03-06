@@ -1,12 +1,9 @@
 import styled from "styled-components";
 
 export const MainContainer = styled.div`
-  min-height: 100vh;
-
-  padding: var(--px-5) var(--px-8);
+  height: 100vh;
 
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 `

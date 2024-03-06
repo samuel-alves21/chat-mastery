@@ -32,6 +32,7 @@ export const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
     --color-secundary: #595fd8;
 
     --color-widget: ${({ $darkMode }) => $darkMode ? '#2F2F2F' : '#fff'};
+    --color-widget-secundary: ${({ $darkMode }) => $darkMode ? '#111313' : '#f9f9f9'};
     --color-widget-hover: ${({ $darkMode }) => $darkMode ? '#424242' : '#ECECEC'};
 
     --color-text: ${({ $darkMode }) => $darkMode ? '#fff' : '#000'};
@@ -78,5 +79,63 @@ export const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
 
   p {
     font-size: var(--px-2);
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    height: 7px;
+    background-color: var(--color-primary);
+    border-radius: 5px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background-color: var(--color-secundary);
+    border: none;
+    border-radius: 50%;
+    margin-top: -3.5px; 
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background-color: var(--color-secundary);
+    border: none;
+    border-radius: 50%;
+    margin-top: -3.5px; 
+
+  }
+
+  input[type="range"]::-ms-thumb {
+    width: 15px;
+    height: 15px;
+    background-color: var(--color-secundary);
+    border: none;
+    border-radius: 50%;
+    margin-top: -3.5px; 
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 7px;
+    background-color: var(--color-primary);
+    border-radius: 5px;
+  }
+
+  input[type="range"]::-moz-range-track {
+    height: 7px;
+    background-color: var(--color-primary);
+    border-radius: 5px;
+  }
+
+  input[type="range"]::-ms-track {
+    height: 7px;
+    background-color: var(--color-primary);
+    border-radius: 5px;
   }
 `

@@ -1,21 +1,26 @@
+import { useContext, useEffect } from "react"
+
 import { ConversationContext, conversationContext } from "../../../../utils/conversation-context"
+import { AiContext, AiContextType } from "../../../../contexts/AiContext"
 
-import { audioSetup } from "../../../../functions/audio/audio-setup"
-import { getResponse } from "../../../../functions/audio/audio-get_response"
+import { getFirstResponse } from "../../../../functions/audio/audio-get_first_response"
 import { playResponse } from "../../../../functions/audio/audio-play_response"
-
-import { Button } from "./Styles"
+import { recorderSetup } from "../../../../functions/audio/recorder-setup"
+import { deviceSetup } from "../../../../functions/audio/device-setup"
+import { undecode } from "../../../../functions/audio/audio-undecode"
 
 import { ChatState } from ".."
+import { Button } from "./Styles"
 
 type ChatButtonProps = {
   isStarted: boolean
   chatState: ChatState
-  recorder: MediaRecorder | null
-  chatContext: Array<object>
+  chatContext: ConversationContext
+  chatHistory: Array<string>
+  setChatHistory: (history: Array<string>) => void
   setIsStarted: (state: boolean) => void
   setChatState: (state: ChatState) => void
-  setRecorder: (recorder: MediaRecorder) => void
+  setRecorder: (recorder: MediaRecorder | null) => void
   setChatContext: (context: ConversationContext) => void
 }
 
@@ -24,80 +29,68 @@ export type ChatButtonStyles = {
   $isStarted: boolean
 }
 
-export const ChatButton = ({ chatState, isStarted, recorder, chatContext, setChatState, setIsStarted, setRecorder, setChatContext }: ChatButtonProps) => {
+export const ChatButton = ({ 
+  chatState, 
+  isStarted, 
+  chatContext, 
+  chatHistory,
+  setChatHistory,
+  setChatState, 
+  setIsStarted, 
+  setRecorder, 
+  setChatContext
+}: ChatButtonProps) => {
+  
+  const { aiState: { voice } } = useContext(AiContext) as AiContextType
 
-  const handleconversation = async () => {
-    if (!isStarted) {
-
-      const stream = await audioSetup()
-
+  useEffect(() => {
+    const asyncFn = async () => {
+      const stream = await deviceSetup()
+        
       if (!stream) {
         console.log('please turn on the microphone permission...')
         setChatState('ready')
         return
       } 
       
-      let chunkArray: Array<Blob> = []
+      const chunkArray: Array<Blob> = []
       
-      if (recorder) {
-        setIsStarted(true)
-        return
-      }
-      
-      const recorderObj = new MediaRecorder(stream)  
-      
-      recorderObj.ondataavailable = (e) => {
-        chunkArray.push(e.data)
-      }
-      
-      recorderObj.onstop = async () => {
-        const audioBlob = new Blob(chunkArray, { type: 'audio/mpeg' })
-        const reader = new FileReader()
-        reader.readAsDataURL(audioBlob)
-
-        reader.onloadend = async () => {
-          if (typeof reader.result === 'string') {
-
-            const base64AudioData = reader.result.split(',')[1]
-  
-            chunkArray = []
-
-            const { audio, updatedContext } = await getResponse(base64AudioData, chatContext)
-            
-            if (!audio) {
-              setChatState('ready')
-              console.log('Something went wrong...')
-              return
-            }
-
-            const binaryString = atob(audio)
-            
-            const uint8Array = new Uint8Array(binaryString.length)
-
-            for (let i = 0; i < binaryString.length; i++) {
-              uint8Array[i] = binaryString.charCodeAt(i)
-            }
-            
-            setChatState('speaking') 
-            
-            await playResponse(uint8Array)
-            setChatState('ready')
-            setChatContext(updatedContext)
-          } 
-        }
-      }
-      
+      console.log('here')
+      const recorderObj = recorderSetup(stream, chunkArray, chatContext, chatHistory, voice, setChatHistory, setChatState, setChatContext)
       setRecorder(recorderObj)
+    }
+
+    asyncFn()
+  }, [chatContext, chatHistory, setChatHistory, setChatContext, setChatState, setRecorder, voice])
+  
+  const handleconversation = async () => {
+    if (isStarted && chatState !== "ready") return 
+    if (!isStarted) {
+      setChatState('procesing') 
       setIsStarted(true)
 
+      // play first audio
+      const { audio, updatedContext } = await getFirstResponse(chatContext, voice)
+
+      setChatState('speaking') 
+      
+      await playResponse(undecode(audio))
+      setChatHistory([...chatHistory, undecode(audio)])
+
+      setChatState('ready')
+      setChatContext(updatedContext)
     } else {
       // end conversation
       setIsStarted(false)
       setChatContext(conversationContext)
+      setRecorder(null)
+      setChatHistory([])
     }
   }
 
   return (
-    <Button onClick={handleconversation} $chatState={chatState} $isStarted={isStarted}>{isStarted ? 'Stop' : 'Start Pratice' }</Button>
+    <Button onClick={handleconversation} $chatState={chatState} $isStarted={isStarted}>
+      {isStarted ? 'Stop' : 'Start Pratice' }
+    </Button>
   )
 }

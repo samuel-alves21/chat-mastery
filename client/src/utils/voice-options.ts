@@ -1,4 +1,11 @@
-export const voiceOptions = [
+export type Voices = 'alloy' | 'echo' | 'fable' | 'nova' | 'onix' | 'shimmer'
+
+type VoiceOptions = {
+  voiceName: Voices;
+  path: string;
+}[] 
+
+export const voiceOptions: VoiceOptions = [
   {
     voiceName: 'alloy',
     path: '/songs/voice-alloy.wav'

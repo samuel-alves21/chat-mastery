@@ -1,4 +1,4 @@
-export const audioSetup = async () => {
+export const deviceSetup = async () => {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: true,

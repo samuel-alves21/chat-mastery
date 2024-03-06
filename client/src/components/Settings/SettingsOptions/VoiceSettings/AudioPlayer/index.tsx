@@ -1,48 +1,14 @@
-import { useEffect, useState } from "react"
 import { PlayerContainer, PlayerIcon, PlayerTrack } from "./Styles"
+
+import { useSettingsAudio } from "../../../../../hooks/useSettingsAudio"
 
 type AudioPlayerProps = {
   src: string
 }
 
-export const AudioPlayer = ({ src }: AudioPlayerProps) => {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [audio, setAudio] = useState<HTMLAudioElement>()
-  const [currentDuration, setCurrentDuration] = useState(0)
-  const [totalDuration, setTotalDuration] = useState(0)
+export const AudioPlayer = ({ src}: AudioPlayerProps) => {
 
-  useEffect(() => {
-    const audioObj = new Audio(src)
-
-    audioObj.onended = () => {
-      setIsPlaying(false)
-      setCurrentDuration(0)
-    }
-
-    audioObj.onloadedmetadata = (e: Event) => {
-      const target = e.target as HTMLAudioElement
-      setTotalDuration(target.duration)
-    
-    }
-
-    if (!audio) {
-      setAudio(audioObj)
-    }
-
-    return () => audio?.pause()
-  }, [setAudio, src, audio])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (audio && isPlaying) {
-        setCurrentDuration(audio.currentTime)
-      }
-    }, 100)
-
-    return () => clearInterval(interval)
-  
-  }, [audio, isPlaying])
-  
+  const { isPlaying, audio, totalDuration, currentDuration, setIsPlaying, setCurrentDuration } = useSettingsAudio(src)
 
   const handlePlay = () => {
     if (!isPlaying) {
