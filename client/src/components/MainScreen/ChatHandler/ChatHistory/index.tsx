@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { AudioPlayer } from "../../../Settings/SettingsOptions/VoiceSettings/AudioPlayer"
+import { AudioPlayer } from "../../../AudioPlayer"
 
 import { AudioContainer, MainContainer } from "./Styles"
 

@@ -44,24 +44,25 @@ export const ChatButton = ({
   const { aiState: { voice } } = useContext(AiContext) as AiContextType
 
   useEffect(() => {
+    if (!isStarted) return
     const asyncFn = async () => {
       const stream = await deviceSetup()
         
       if (!stream) {
-        console.log('please turn on the microphone permission...')
+        alert('To use this app, you need to give the permission to use the microphone')
         setChatState('ready')
+        setIsStarted(false)
         return
       } 
       
       const chunkArray: Array<Blob> = []
       
-      console.log('here')
       const recorderObj = recorderSetup(stream, chunkArray, chatContext, chatHistory, voice, setChatHistory, setChatState, setChatContext)
       setRecorder(recorderObj)
     }
 
     asyncFn()
-  }, [chatContext, chatHistory, setChatHistory, setChatContext, setChatState, setRecorder, voice])
+  }, [chatContext, chatHistory, setChatHistory, setChatContext, setChatState, setRecorder, voice, isStarted, setIsStarted])
   
   const handleconversation = async () => {
     if (isStarted && chatState !== "ready") return 
