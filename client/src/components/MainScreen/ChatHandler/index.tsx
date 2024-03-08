@@ -10,9 +10,9 @@ import { Container, CenterContainer, MainContainer } from './Styles.js'
 import { ChatHistory } from './ChatHistory/index.js'
 import { Footer } from './Footer/index.js'
 
-import alloy from '../../../../public/songs/voice-alloy.wav'
-import echo from '../../../../public/songs/voice-echo.wav'
-import fable from '../../../../public/songs/voice-fable.wav'
+// import alloy from '../../../../public/songs/voice-alloy.wav'
+// import echo from '../../../../public/songs/voice-echo.wav'
+// import fable from '../../../../public/songs/voice-fable.wav'
 
 export type ChatState = 'ready' | 'recording' | 'procesing' | 'speaking'
 
@@ -22,7 +22,7 @@ export const ChatHandler = () => {
   const [recorder, setRecorder] = useState<MediaRecorder | null>(null)
   const [isStarted, setIsStarted] = useState(false)
   const [chatContext, setChatContext] = useState(conversationContext)
-  const [chatHistory, setChatHistory] = useState<Array<string>>([alloy, echo, fable])
+  const [chatHistory, setChatHistory] = useState<Array<string>>([])
   
   useEffect(() => {
     if (isStarted) {
