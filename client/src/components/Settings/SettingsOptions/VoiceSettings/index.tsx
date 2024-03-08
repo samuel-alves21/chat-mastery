@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 
 import { AiContext, AiContextType } from "../../../../contexts/AiContext"
 import { Voices, voiceOptions } from "../../../../utils/voice-options"
@@ -16,6 +16,8 @@ export const VoiceSettings = () => {
     aiDispatch({ type: "SET_VOICE", payload: voice})
   }
 
+  const [playAudio, setPlayAudio] = useState<null | number>(null)
+
   return (
     <>
       {voiceOptions.map((audio, index) => (
@@ -24,7 +26,7 @@ export const VoiceSettings = () => {
             <input type="checkbox" checked={audio.voiceName === voice} readOnly={true}/>
             <p>{captalizeText(audio.voiceName)}</p>
           </AudioNameContainer>
-          <AudioPlayer src={audio.path} />
+          <AudioPlayer src={audio.path} id={index} playAudio={playAudio} setPlayAudio={setPlayAudio}/>
         </AudioContainer>
       ))}
     </>

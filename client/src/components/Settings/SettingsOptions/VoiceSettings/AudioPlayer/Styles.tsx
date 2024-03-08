@@ -1,10 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components' 
 
 export const PlayerContainer = styled.div`
   display: flex;
   align-items: center;
   gap: var(--px-2);
-  `
+`
 
 export const PlayerIcon = styled.div`
   .bi {
@@ -19,4 +19,3 @@ export const PlayerTrack= styled.input`
 
   cursor: pointer;
 `
-

@@ -4,19 +4,20 @@ import { useSettingsAudio } from "../../../../../hooks/useSettingsAudio"
 
 type AudioPlayerProps = {
   src: string
+  id: number
+  playAudio: null | number
+  setPlayAudio: (value: null | number) => void
 }
 
-export const AudioPlayer = ({ src}: AudioPlayerProps) => {
+export const AudioPlayer = ({ src, id, playAudio, setPlayAudio }: AudioPlayerProps) => {
 
-  const { isPlaying, audio, totalDuration, currentDuration, setIsPlaying, setCurrentDuration } = useSettingsAudio(src)
+  const { isPlaying, audio, totalDuration, currentDuration, setCurrentDuration } = useSettingsAudio(src, playAudio, id, setPlayAudio)
 
   const handlePlay = () => {
     if (!isPlaying) {
-      audio?.play()
-      setIsPlaying(true)
+      setPlayAudio(id)
     } else {
-      audio?.pause()
-      setIsPlaying(false)
+      setPlayAudio(null)
     }
   }
 
@@ -38,7 +39,7 @@ export const AudioPlayer = ({ src}: AudioPlayerProps) => {
   }
 
   return (
-    <PlayerContainer>
+    <PlayerContainer className={isPlaying ? 'playing' : ''}>
       <PlayerIcon>
         <i className={`bi ${isPlaying ? 'bi-pause-fill' : 'bi-play-fill'}`} onClick={handlePlay}></i>
       </PlayerIcon>

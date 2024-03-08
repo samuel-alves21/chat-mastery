@@ -3,7 +3,12 @@ import { useContext, useEffect, useState } from "react"
 import { SettingsContext, SettingsContextType } from "../contexts/SettingsContext"
 import { AiContext, AiContextType } from "../contexts/AiContext"
 
-export const useSettingsAudio = (src: string) => {
+export const useSettingsAudio = (
+  src: string,
+  playAudio: null | number,
+  id: number, 
+  setPlayAudio: (value: number | null) => void
+) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [audio, setAudio] = useState<HTMLAudioElement>()
   const [currentDuration, setCurrentDuration] = useState(0)
@@ -14,22 +19,41 @@ export const useSettingsAudio = (src: string) => {
 
 
   useEffect(() => {
-    if (!onScreen) {
-      if (!audio) return
-      audio.pause()
-      audio.currentTime = 0
-      setIsPlaying(false)
-      setCurrentDuration(0)
-    }
-  }, [onScreen, audio])
+    if (!audio) return
+    console.log('voice changed')
+    audio.pause()
+    audio.currentTime = 0
+    setIsPlaying(false)
+    setCurrentDuration(0)
+    setPlayAudio(null)
+    
+  }, [onScreen, audio, voice, setPlayAudio])
 
   useEffect(() => {
+    if (playAudio === id) {
+      if (audio?.paused) {
+        setIsPlaying(true)
+        audio?.play()
+        return
+      } else {
+        audio?.pause()
+        setIsPlaying(false)
+        return
+      }
+    } 
+
+    if (playAudio === null) {
+      audio?.pause()
+      setIsPlaying(false)
+      return
+    }
+
     if (!audio) return
     audio.pause()
     audio.currentTime = 0
     setIsPlaying(false)
     setCurrentDuration(0)
-  }, [voice, audio])
+  }, [playAudio, id, audio])
 
   useEffect(() => {
     const audioObj = new Audio(src)
@@ -61,5 +85,5 @@ export const useSettingsAudio = (src: string) => {
   
   }, [audio, isPlaying])
 
-  return { isPlaying, audio, totalDuration, currentDuration, setIsPlaying, setCurrentDuration }
+  return { isPlaying, audio, totalDuration, currentDuration, setCurrentDuration }
 }
