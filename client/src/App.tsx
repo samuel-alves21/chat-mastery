@@ -7,6 +7,8 @@ import { GlobalStyles } from "./GlobalStyles"
 import { SettingsProvider } from "./contexts/SettingsContext"
 import { DarkModeContext, DarkModeContextType } from "./contexts/DarkModeContext"
 import { AiProvider } from "./contexts/AiContext"
+import { Alert } from "./components/Alert"
+import { AlertProvider } from "./contexts/AlertContext"
 
 
 function App() {
@@ -15,9 +17,12 @@ function App() {
   return (
     <SettingsProvider>
       <AiProvider>
-        <GlobalStyles $darkMode={darkMode}/>
-        <Settings />
-        <MainScreen />
+        <AlertProvider>
+          <GlobalStyles $darkMode={darkMode}/>
+          <Alert />
+          <Settings />
+          <MainScreen />
+        </AlertProvider>
       </AiProvider>
     </SettingsProvider>
   )

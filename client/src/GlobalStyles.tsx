@@ -64,7 +64,8 @@ export const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
   }
   
   button {
-    padding: var(--px-2) var(--px-8); 
+    width: 130px;
+    padding: var(--px-2) var(--px-5); 
     font-size: var(--px-2);
     
     cursor: pointer;

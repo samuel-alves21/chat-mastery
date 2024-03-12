@@ -1,6 +1,8 @@
 import { useContext, useEffect } from "react"
 
 import { ConversationContext, conversationContext } from "../../../../utils/conversation-context"
+
+import { AlertContext, AlertContextType } from "../../../../contexts/AlertContext"
 import { AiContext, AiContextType } from "../../../../contexts/AiContext"
 
 import { getFirstResponse } from "../../../../functions/audio/audio-get_first_response"
@@ -42,6 +44,15 @@ export const ChatButton = ({
 }: ChatButtonProps) => {
   
   const { aiState: { voice } } = useContext(AiContext) as AiContextType
+  const { alertState: { leaveConversation } ,alertDispatch } = useContext(AlertContext) as AlertContextType 
+
+  useEffect(() => {
+    if (!leaveConversation) return
+    setIsStarted(false)
+    setChatContext(conversationContext)
+    setRecorder(null)
+    setChatHistory([])
+  }, [leaveConversation, setChatContext, setChatHistory, setIsStarted, setRecorder])
 
   useEffect(() => {
     if (!isStarted) return
@@ -49,7 +60,8 @@ export const ChatButton = ({
       const stream = await deviceSetup()
         
       if (!stream) {
-        alert('To use this app, you need to give the permission to use the microphone')
+        alertDispatch({ type: 'SET_DISPLAY', payload: true })
+        alertDispatch({ type: 'GET_MICROPHONE' })
         setChatState('ready')
         setIsStarted(false)
         return
@@ -62,7 +74,18 @@ export const ChatButton = ({
     }
 
     asyncFn()
-  }, [chatContext, chatHistory, setChatHistory, setChatContext, setChatState, setRecorder, voice, isStarted, setIsStarted])
+  }, [
+    chatContext,
+    chatHistory,
+    setChatHistory, 
+    setChatContext, 
+    setChatState, 
+    setRecorder, 
+    voice, 
+    isStarted, 
+    setIsStarted, 
+    alertDispatch
+  ])
   
   const handleconversation = async () => {
     if (isStarted && chatState !== "ready") return 
@@ -82,10 +105,9 @@ export const ChatButton = ({
       setChatContext(updatedContext)
     } else {
       // end conversation
-      setIsStarted(false)
-      setChatContext(conversationContext)
-      setRecorder(null)
-      setChatHistory([])
+
+      alertDispatch({ type: 'SET_DISPLAY', payload: true })
+      alertDispatch({ type: 'STOP_CONVERSATION' })
     }
   }
 
