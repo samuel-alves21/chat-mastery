@@ -9,11 +9,9 @@ export const MainContainer = styled.div<MainContainerProps>`
   justify-content: center;
   align-items: center;
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   height: 100%;
   width: 100%;
-
-  overflow-y: hidden;
   
   background-color: #070707a7;
 `

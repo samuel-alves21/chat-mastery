@@ -1,6 +1,6 @@
 import { useContext } from "react"
 
-import { MainScreen } from "./components/MainScreen"
+import { ChatHandler } from "./components/ChatHandler"
 import { Settings } from "./components/Settings"
 import { GlobalStyles } from "./GlobalStyles"
 
@@ -21,7 +21,7 @@ function App() {
           <GlobalStyles $darkMode={darkMode}/>
           <Alert />
           <Settings />
-          <MainScreen />
+          <ChatHandler />
         </AlertProvider>
       </AiProvider>
     </SettingsProvider>

@@ -62,7 +62,7 @@ export const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
   h3, h4 {
     font-weight: normal;
   }
-  
+
   button {
     width: 130px;
     padding: var(--px-2) var(--px-5); 
