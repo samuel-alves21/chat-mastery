@@ -9,6 +9,8 @@ import { DarkModeContext, DarkModeContextType } from "./contexts/DarkModeContext
 import { AiProvider } from "./contexts/AiContext"
 import { Alert } from "./components/Alert"
 import { AlertProvider } from "./contexts/AlertContext"
+import { ToggleHistoryProvider } from "./contexts/ToggleHistoryContext"
+import { Filter } from "./components/Filter"
 
 
 function App() {
@@ -18,10 +20,13 @@ function App() {
     <SettingsProvider>
       <AiProvider>
         <AlertProvider>
-          <GlobalStyles $darkMode={darkMode}/>
-          <Alert />
-          <Settings />
-          <ChatHandler />
+          <ToggleHistoryProvider>
+            <GlobalStyles $darkMode={darkMode}/>
+            <Filter />
+            <Alert />
+            <Settings />
+            <ChatHandler />
+          </ToggleHistoryProvider>
         </AlertProvider>
       </AiProvider>
     </SettingsProvider>

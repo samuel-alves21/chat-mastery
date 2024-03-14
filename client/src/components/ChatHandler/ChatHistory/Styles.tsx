@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 
 export const MainContainer = styled.div`
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 100%;
+  align-items: center;  
+  height: 100vh;
+  width: 300px;
 
   gap: var(--px-3);
 

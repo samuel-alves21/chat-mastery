@@ -59,12 +59,30 @@ export const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
     transition: background 0.5s;
   }
 
+  .bi {
+    font-size: var(--px-4);
+    cursor: pointer;
+    
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+
+  .bi-x {
+    cursor: pointer;
+    font-size: var(--px-5);
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
   h3, h4 {
     font-weight: normal;
   }
 
   button {
-    width: 130px;
+    width: 100px;
     padding: var(--px-2) var(--px-5); 
     font-size: var(--px-2);
     

@@ -12,8 +12,6 @@ export const MainContainer = styled.div<MainContainerProps>`
   z-index: 4;
   height: 100%;
   width: 100%;
-  
-  background-color: #070707a7;
 `
 
 export const Widget = styled.div`

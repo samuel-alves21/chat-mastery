@@ -11,7 +11,7 @@ export const MainContainer = styled.div<MainContainerStyledProps>`
   justify-content: center;
   align-items: center;
   position: absolute;
-  z-index: 2;
+  z-index: 4;
 
   transition: opacity ${({ $onScreen }) => $onScreen ? '0.8s' : '0.2s'} ease-in-out;
   
@@ -19,8 +19,6 @@ export const MainContainer = styled.div<MainContainerStyledProps>`
   width: 100%;
 
   overflow-y: hidden;
-  
-  background-color: #070707a7;
 `
 
 export const SettingsContainer = styled.div<MainContainerStyledProps>`

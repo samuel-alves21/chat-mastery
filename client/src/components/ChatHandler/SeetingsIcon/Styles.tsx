@@ -8,15 +8,6 @@ type SettingsIconStyles = {
 const animationTime = '0.5s'
 
 export const MainContainer = styled.div<SettingsIconStyles>`
-  .bi-gear-fill {
-    font-size: var(--px-4);
-    cursor: pointer;
-    
-    &:hover {
-      color: var(--color-primary);
-    }
-  }
-  
   ${({ $onScreen, $wasClicked }) => $wasClicked && ($onScreen ? `animation: rotate-in ${animationTime} ease-in-out` : `animation: rotate-out ${animationTime} ease-in-out`)};
   
   @keyframes rotate-in {

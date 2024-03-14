@@ -14,7 +14,7 @@ export const PlayerIcon = styled.div`
 `
 
 export const PlayerTrack= styled.input`
-  width: 200px;
+  width: 100px;
   height: var(--px-1);
 
   cursor: pointer;

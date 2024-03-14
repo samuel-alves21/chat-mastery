@@ -1,9 +1,11 @@
 import styled from "styled-components"
 
 export const MainContainer = styled.div`
+  overflow-x: hidden;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   width: 100%;
   height: 100vh;
 `
@@ -14,7 +16,9 @@ export const CenterContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   flex-grow: 1;
-  min-height: 100vh;
+  height: 100%;
+
+  overflow-y: auto;
 
   gap: var(--px-6);
   padding: var(--px-4);

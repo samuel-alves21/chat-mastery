@@ -11,8 +11,9 @@ import { recorderSetup } from "../../../functions/audio/recorder-setup"
 import { deviceSetup } from "../../../functions/audio/device-setup"
 import { undecode } from "../../../functions/audio/audio-undecode"
 
-import { ChatState } from ".."
 import { Button } from "./Styles"
+
+import { ChatState } from ".."
 
 type ChatButtonProps = {
   isStarted: boolean
