@@ -20,7 +20,6 @@ export const useSettingsAudio = (
 
   useEffect(() => {
     if (!audio) return
-    console.log('voice changed')
     audio.pause()
     audio.currentTime = 0
     setIsPlaying(false)

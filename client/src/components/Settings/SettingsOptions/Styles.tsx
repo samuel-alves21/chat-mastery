@@ -10,7 +10,7 @@ export const MainContainer = styled.div`
   
   display: flex;
   gap: var(--px-10);
-  height: 70%;
+  height: 80%;
 
   @media (max-width: ${breakingPoints.md}) {
     flex-direction: column;

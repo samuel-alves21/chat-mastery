@@ -1,7 +1,9 @@
 import { useContext, useState } from "react"
 
 import { AiContext, AiContextType } from "../../../../contexts/AiContext"
+
 import { Voices, voiceOptions } from "../../../../utils/voice-options"
+
 import { captalizeText } from "../../../../functions/text-captalize"
 
 import { AudioPlayer } from "../../../AudioPlayer"

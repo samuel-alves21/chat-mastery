@@ -1,8 +1,6 @@
 import { Voices } from "../../utils/voice-options"
 
 export const getResponse = async (base64AudioData: string, conversationContext: Array<object>, voice: Voices) => {
-  console.log(conversationContext)
-
   try {
     const response = await fetch('http://localhost:8000/conversation', {
       method: 'POST',

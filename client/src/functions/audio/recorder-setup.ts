@@ -1,4 +1,4 @@
-import { ChatState } from "../../components/MainScreen/ChatHandler"
+import { ChatState } from "../../components/ChatHandler"
 
 import { ConversationContext } from "../../utils/conversation-context"
 import { Voices } from "../../utils/voice-options"

@@ -30,7 +30,6 @@ export const ChatMicrophone = ({ chatState, recorder, isStarted, setChatState }:
     } else {
       
       if (chatState === 'recording') {
-        console.log('timer')
         recordTimeout = setInterval(() => {
           setTimer(timer -1)
         }, 1000)

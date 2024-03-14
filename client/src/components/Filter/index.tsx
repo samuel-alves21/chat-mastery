@@ -1,8 +1,8 @@
 import { useContext } from "react"
 
-import { AlertContext, AlertContextType } from "../../contexts/AlertContext"
-import { SettingsContext, SettingsContextType } from "../../contexts/SettingsContext"
 import { ToggleHistoryContext, ToggleHistoryContextType } from "../../contexts/ToggleHistoryContext"
+import { SettingsContext, SettingsContextType } from "../../contexts/SettingsContext"
+import { AlertContext, AlertContextType } from "../../contexts/AlertContext"
 
 import { StyledFilter } from "./Styles"
 

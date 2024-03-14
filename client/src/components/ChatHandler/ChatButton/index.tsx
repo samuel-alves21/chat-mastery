@@ -94,7 +94,6 @@ export const ChatButton = ({
       setChatState('procesing') 
       setIsStarted(true)
 
-      // play first audio
       const { audio, updatedContext } = await getFirstResponse(chatContext, voice)
 
       setChatState('speaking') 
@@ -105,8 +104,6 @@ export const ChatButton = ({
       setChatState('ready')
       setChatContext(updatedContext)
     } else {
-      // end conversation
-
       alertDispatch({ type: 'SET_DISPLAY', payload: true })
       alertDispatch({ type: 'STOP_CONVERSATION' })
     }

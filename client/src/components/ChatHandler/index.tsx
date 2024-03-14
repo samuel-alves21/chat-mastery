@@ -1,24 +1,22 @@
-import { useMediaQuery } from 'react-responsive'
 import { useContext, useEffect, useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
 
 import { conversationContext } from '../../utils/conversation-context.js'
 import { breakingPoints } from '../../utils/breaking-points.js'
 
 import { ChatMicrophone } from './ChatMicrophone/index.js'
+import { HistoryButton } from './HistoryButton/index.js'
 import { SettingsIcon } from './SeetingsIcon/index.js'
 import { AsideHistory } from './AsideHistory/index.js'
 import { ChatHistory } from './ChatHistory/index.js'
 import { ChatButton } from './ChatButton/index.js'
 import { Footer } from './Footer/index.js'
 
+import { ToggleHistoryContext, ToggleHistoryContextType } from '../../contexts/ToggleHistoryContext/index.js'
+
 import { Container, CenterContainer, MainContainer } from './Styles.js'
 
-import alloy from '../../../public/songs/voice-alloy.wav'
-import echo from '../../../public/songs/voice-echo.wav'
-import fable from '../../../public/songs/voice-fable.wav'
-import { HistoryButton } from './HistoryButton/index.js'
 import { useAlertBeforeReload } from '../../hooks/useAlertBeforeReload.js'
-import { ToggleHistoryContext, ToggleHistoryContextType } from '../../contexts/ToggleHistoryContext/index.js'
 
 export type ChatState = 'ready' | 'recording' | 'procesing' | 'speaking'
 
@@ -28,7 +26,7 @@ export const ChatHandler = () => {
   const [recorder, setRecorder] = useState<MediaRecorder | null>(null)
   const [isStarted, setIsStarted] = useState(false)
   const [chatContext, setChatContext] = useState(conversationContext)
-  const [chatHistory, setChatHistory] = useState<Array<string>>([alloy, echo, fable, alloy, echo, fable, alloy, echo, fable, alloy, echo, fable, alloy, echo, fable, alloy, echo, fable])
+  const [chatHistory, setChatHistory] = useState<Array<string>>([])
 
   const xl = useMediaQuery({ query: `(min-width: ${breakingPoints.xl})`})
 
