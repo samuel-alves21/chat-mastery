@@ -10,12 +10,15 @@ export const Filter = () => {
 
   const { onScreen } = useContext(SettingsContext) as SettingsContextType
   const { alertState: { display } } = useContext(AlertContext) as AlertContextType
-  const { toggle } = useContext(ToggleHistoryContext) as ToggleHistoryContextType
+  const { toggle, setToggle } = useContext(ToggleHistoryContext) as ToggleHistoryContextType
 
   const show = onScreen || display || toggle
-  console.log(show)
+  
+  const closeTabs = () => {
+    setToggle(false)
+  }
 
   return (
-    <StyledFilter $show={show}/>
+    <StyledFilter $show={show} onClick={closeTabs}/>
   )
 }

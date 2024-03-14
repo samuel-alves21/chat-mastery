@@ -9,7 +9,7 @@ export const MainContainer = styled.div<AsideHistoryStyles>`
     position: absolute;
     right: ${({$toggle}) => $toggle ? '0' : '-200%'};
     top: 0;
-    transition: right 0.2s ease-in-out;
+    transition: right 0.5s;
     z-index: 4;
   }
   z-index: 4;
