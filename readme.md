@@ -23,7 +23,7 @@ ChatMastery is an interactive language learning application that allows users to
 1. Clone the repository:
 
 ```
-git clone https://github.com/your-username/chat-mastery.git
+git clone https://github.com/samuel-alves21/chat-mastery.git
 ```
 2. Navigate to the project directory:
 

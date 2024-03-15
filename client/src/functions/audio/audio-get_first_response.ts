@@ -3,7 +3,7 @@ import { baseUrl } from "../../utils/api"
 
 export const getFirstResponse = async (conversationContext: Array<object>, voice: Voices) => {
   try {
-    const response = await fetch(baseUrl, {
+    const response = await fetch(`${baseUrl}/start-conversation`, {
       method: 'POST',
       body: JSON.stringify({
         context: conversationContext,

@@ -3,7 +3,7 @@ import { baseUrl } from "../../utils/api"
 
 export const getResponse = async (base64AudioData: string, conversationContext: Array<object>, voice: Voices) => {
   try {
-    const response = await fetch(baseUrl, {
+    const response = await fetch(`${baseUrl}/conversation`, {
       method: 'POST',
       body: JSON.stringify({
         encodedAudio: base64AudioData,
