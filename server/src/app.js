@@ -12,11 +12,11 @@ const { TextToSpeech } = require('./openai/openai.text-to-speech')
 
 const app = express()
 
-app.use(express.json({ limit: '20mb' }))
-
 app.use(cors({
   origin: ['https://samuel-alves21.github.io/chat-mastery/', 'http://localhost:5173'],
 }))
+
+app.use(express.json({ limit: '20mb' }))
 
 app.post('/conversation', async (req, res) => {
   console.log(req.method, req.url)
