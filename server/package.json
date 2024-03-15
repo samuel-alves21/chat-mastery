@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon src/server.js --watch"
+    "server": "nodemon src/server.js --watch",
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
