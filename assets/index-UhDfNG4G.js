@@ -332,7 +332,7 @@ Valid keys: `+JSON.stringify(Object.keys(_),null,"  "));var xe=N(V,q,W,Z,Q+"."+q
   &:hover {
     background-color: var(--color-widget-hover);
   }
-`,ry=()=>T.jsxs(ny,{children:[T.jsx("p",{children:"dark mode: "}),T.jsx(ty,{})]}),oy=[{voiceName:"alloy",path:"/songs/voice-alloy.wav"},{voiceName:"echo",path:"/songs/voice-echo.wav"},{voiceName:"fable",path:"/songs/voice-fable.wav"},{voiceName:"nova",path:"/songs/voice-nova.wav"},{voiceName:"onix",path:"/songs/voice-onix.wav"},{voiceName:"shimmer",path:"/songs/voice-shimmer.wav"}],iy=G.div`
+`,ry=()=>T.jsxs(ny,{children:[T.jsx("p",{children:"dark mode: "}),T.jsx(ty,{})]}),oy=[{voiceName:"alloy",path:"/chat-mastery/songs/voice-alloy.wav"},{voiceName:"echo",path:"/chat-mastery/songs/voice-echo.wav"},{voiceName:"fable",path:"/chat-mastery/songs/voice-fable.wav"},{voiceName:"nova",path:"/chat-mastery/songs/voice-nova.wav"},{voiceName:"onix",path:"/chat-mastery/songs/voice-onix.wav"},{voiceName:"shimmer",path:"/chat-mastery/songs/voice-shimmer.wav"}],iy=G.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
